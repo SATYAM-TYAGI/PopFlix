@@ -2,6 +2,8 @@
 
 Movie streaming website built for full stack assignment.
 
+[Live Link:](https://pop-flix-five.vercel.app/)
+
 **Frontend:** React + Vite + Tailwind  
 **Backend:** Node + Express + MongoDB  
 
@@ -10,7 +12,7 @@ Movie streaming website built for full stack assignment.
 - Responsive UI (mobile + desktop)
 - Movie listing from backend API
 - Login / Signup with JWT
-- My List (saved in browser localStorage)
+- My List
 - Movie detail page with trailer play
 
 ## Quick start
