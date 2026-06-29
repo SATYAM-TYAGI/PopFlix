@@ -18,7 +18,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { movies } = useMovies();
   const heroImages = movies.slice(0, 4).map((movie) => movie.poster);
-  const minimumDisplayCount = 3; // default cards shown before load more
+  const minimumDisplayCount = 4; // default cards shown before load more
 
   // login/signup form submit
   const handleSubmit = async (e) => {
