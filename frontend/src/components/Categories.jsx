@@ -26,7 +26,8 @@ const Categories = ({ onViewChange, onMovieClick, isGuest = false }) => {
   }, [movies, selectedGenre]);
 
   useEffect(() => {
-    if (!isGuest && isProfileOpen && profileData.username === "Loading...") {
+    const shouldFetchProfile = isProfileOpen || isMobileProfileOpen;
+    if (!isGuest && shouldFetchProfile && profileData.username === "Loading...") {
       const token = localStorage.getItem("token");
       if (token) {
         fetch(`${API_BASE_URL}/api/auth/profile`, {
@@ -46,7 +47,7 @@ const Categories = ({ onViewChange, onMovieClick, isGuest = false }) => {
           });
       }
     }
-  }, [isGuest, isProfileOpen, profileData.username]);
+  }, [isGuest, isProfileOpen, isMobileProfileOpen, profileData.username]);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");

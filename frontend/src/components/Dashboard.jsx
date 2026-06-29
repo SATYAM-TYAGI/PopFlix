@@ -16,9 +16,10 @@ const Dashboard = ({ onViewChange, initialMovie = null }) => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const { movies } = useMovies();
 
-  // profile api call - only when dropdown opens
+  // profile api call when desktop or mobile profile opens
   useEffect(() => {
-    if (isProfileOpen && profileData.username === 'Loading...') {
+    const shouldFetchProfile = isProfileOpen || isMobileProfileOpen;
+    if (shouldFetchProfile && profileData.username === 'Loading...') {
       const token = localStorage.getItem('token');
       if (token) {
         fetch(`${API_BASE_URL}/api/auth/profile`, {
@@ -38,7 +39,7 @@ const Dashboard = ({ onViewChange, initialMovie = null }) => {
         });
       }
     }
-  }, [isProfileOpen, profileData.username]);
+  }, [isProfileOpen, isMobileProfileOpen, profileData.username]);
 
   const handleSignOut = () => {
     // clear session and reload
@@ -434,20 +435,17 @@ const Dashboard = ({ onViewChange, initialMovie = null }) => {
       )}
 
       {/* Footer / CTA Section */}
-      <section className="px-4 md:px-10 py-10 md:py-20 flex flex-col md:flex-row items-center justify-between min-h-[300px] md:min-h-[400px] relative overflow-hidden">
-        <div className="max-w-xl relative z-10 w-full text-center md:text-left pb-20 md:pb-0">
-          <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight mb-6">
+      <section className="px-4 md:px-10 py-10 md:py-20 relative overflow-hidden min-h-[260px] md:min-h-[400px]">
+        <div className="relative z-10 max-w-[58%] sm:max-w-[65%] md:max-w-xl">
+          <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-tight text-left">
             From blockbuster hits to hidden gems, we've got a movie for every taste. Continue browsing to find your perfect match.
           </p>
         </div>
-        <div className="absolute right-0 bottom-0 md:top-0 w-full md:w-1/2 flex justify-center md:justify-end items-end md:items-center pointer-events-none opacity-50 md:opacity-100">
-          <img 
-            src="/popcorn_img4.png" 
-            alt="Popcorn" 
-            className="w-[300px] md:w-[800px] object-contain md:translate-x-1/4 md:translate-y-10 md:scale-125"
-            style={{ maskImage: 'linear-gradient(to right, transparent, black 40%)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 40%)' }}
-          />
-        </div>
+        <img
+          src="/popcorn_img4.png"
+          alt="Popcorn"
+          className="absolute bottom-0 right-0 w-[150px] sm:w-[190px] md:w-[800px] object-contain translate-x-3 translate-y-3 md:translate-x-1/4 md:translate-y-10 md:scale-125 pointer-events-none"
+        />
       </section>
 
       {/* Video Modal */}

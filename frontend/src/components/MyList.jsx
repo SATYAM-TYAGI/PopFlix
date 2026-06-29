@@ -15,9 +15,10 @@ const MyList = ({ onViewChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { movies } = useMovies();
 
-  // profile fetch on dropdown open
+  // profile fetch when desktop or mobile profile opens
   useEffect(() => {
-    if (isProfileOpen && profileData.username === 'Loading...') {
+    const shouldFetchProfile = isProfileOpen || isMobileProfileOpen;
+    if (shouldFetchProfile && profileData.username === 'Loading...') {
       const token = localStorage.getItem('token');
       if (token) {
         fetch(`${API_BASE_URL}/api/auth/profile`, {
@@ -37,7 +38,7 @@ const MyList = ({ onViewChange }) => {
         });
       }
     }
-  }, [isProfileOpen, profileData.username]);
+  }, [isProfileOpen, isMobileProfileOpen, profileData.username]);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
